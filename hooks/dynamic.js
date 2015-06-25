@@ -85,9 +85,14 @@ module.exports = function (hoodie) {
 
         function sendVerificationMail() {
           var address = 'http://127.0.0.1:6031/_api/_plugins/email-verifier/_api/' + emailAddress + '?token=' + token;
+          var subject = 'Please verify your email address';
+          var appName = hoodie.config.get('app_name');
+          if (appName) {
+            subject = appName + ': ' + subject;
+          }
           hoodie.sendEmail({
             to: emailAddress,
-            subject: "Please verify your email address",
+            subject: subject,
             text: "Please go here in your browser: " + address,
             html: '<p>Please click on the link below to verify your address</p><a href="' + address + '">' + address + '</a>'
           }, function(err) {
