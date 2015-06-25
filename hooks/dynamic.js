@@ -47,6 +47,7 @@ module.exports = function (hoodie) {
           if (err) {
               console.log('Error updating user ' + emailAddress + ' ' + err);
           }
+          reply.redirect('/#confirmed');
           return true;
         });
       });
