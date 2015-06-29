@@ -4,6 +4,8 @@ var crypto = require('crypto');
 module.exports = function (hoodie) {
   return {
     'server.api.plugin-request': function (request, reply) {
+      //This function is the handler for when the user clicks on the link in the email.
+
       var emailAddress = request.params.p;
 
       if (! /@/.test(emailAddress)) {
@@ -26,6 +28,7 @@ module.exports = function (hoodie) {
 
         //if user has already been verified, just quit
         if (!user.emailVerificationToken) {
+          //TODO make this come from config
           reply.redirect('/#confirmed');
           return true;
         }
@@ -57,6 +60,8 @@ module.exports = function (hoodie) {
     },
 
     'plugin.user.confirm' : function(request, reply) {
+      //this function is called when a user initially signs up (and a lot of other times too, but we just try to ignore those other calls)
+
       var emailAddress = request.id;
       hoodie.account.find('user', emailAddress, function (err, user) {
 
@@ -89,7 +94,12 @@ module.exports = function (hoodie) {
             });
           },
           sendVerificationEmail: function(callback) {
-            var address = 'http://127.0.0.1:6031/_api/_plugins/email-verifier/_api/' + emailAddress + '?token=' + token;
+            //TODO - make this part of config
+            var protocol = 'http';
+
+            var host = hoodie.config.get('host');
+            var port = hoodie.config.get('www_port');
+            var address = protocol + '://' + host + ':' + port + '/_api/_plugins/email-verifier/_api/' + emailAddress + '?token=' + token;
             var subject = 'Please verify your email address';
             var appName = hoodie.config.get('app_name');
             if (appName) {
@@ -111,42 +121,6 @@ module.exports = function (hoodie) {
         function(err, results) {
           reply(false);
         });
-
-
-
-        //function addToken() {
-        //  var changedAttrs = {
-        //    emailVerificationToken: token
-        //  };
-        //  hoodie.account.update('user', emailAddress, changedAttrs, function(err) {
-        //    if (err) {
-        //      console.log('Error adding emailVerificationToken to user ' + emailAddress + ' ' + err);
-        //    }
-        //    sendVerificationMail();
-        //  });
-        //}
-        //
-        //function sendVerificationMail() {
-        //  var address = 'http://127.0.0.1:6031/_api/_plugins/email-verifier/_api/' + emailAddress + '?token=' + token;
-        //  var subject = 'Please verify your email address';
-        //  var appName = hoodie.config.get('app_name');
-        //  if (appName) {
-        //    subject = appName + ': ' + subject;
-        //  }
-        //  hoodie.sendEmail({
-        //    to: emailAddress,
-        //    subject: subject,
-        //    text: "Please go here in your browser: " + address,
-        //    html: '<p>Please click on the link below to verify your address</p><a href="' + address + '">' + address + '</a>'
-        //  }, function(err) {
-        //    if (err) {
-        //      console.log('Problem sending mail: ' + err)
-        //    }
-        //    reply(false);
-        //  });
-        //}
-        //
-        //addToken();
 
       });
 
