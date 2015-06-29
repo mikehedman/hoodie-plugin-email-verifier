@@ -1,26 +1,20 @@
 {
   "name": "hoodie-plugin-email-verifier",
+  "version": "1.0.0",
   "description": "Hoodie plugin that sends an email verification mail to confirm the user.",
+  "keywords": ["hoodie", "plugin", "email"],
+  "homepage": "https://github.com/mikehedman/hoodie-plugin-email-verifier",
+  "bugs": "https://github.com/mikehedman/hoodie-plugin-email-verifier/issues",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Mike Hedman",
+    "email": "mikehedman@gmail.com"
+  },
   "dependencies": {
     "async": "^0.9.0"
   },
-  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikehedman/hoodie-plugin-email-verifier.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mikehedman/hoodie-plugin-email-verifier/issues"
-  },
-  "gitHead": "5a6ac4022f5bd8ec94338df0fae7a8a50414af71",
-  "homepage": "https://github.com/mikehedman/hoodie-plugin-email-verifier",
-  "_id": "hoodie-plugin-email-verifier@1.0.0",
-  "scripts": {},
-  "maintainers": [
-    {
-      "name": "mike",
-      "email": "mikehedman@gmail.com"
-    }
-  ],
-  "directories": {}
+    "url": "https://github.com/mikehedman/hoodie-plugin-email-verifier.git"
+  }
 }
