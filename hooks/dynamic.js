@@ -96,9 +96,8 @@ module.exports = function (hoodie) {
           sendVerificationEmail: function(callback) {
             //TODO - make this part of config
             var protocol = 'http';
-
-            var host = hoodie.config.get('host');
-            var port = hoodie.config.get('www_port');
+            var host = hoodie.env.host;
+            var port = hoodie.env.www_port;
             var address = protocol + '://' + host + ':' + port + '/_api/_plugins/email-verifier/_api/' + emailAddress + '?token=' + token;
             var subject = 'Please verify your email address';
             var appName = hoodie.config.get('app_name');
